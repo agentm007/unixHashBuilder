@@ -1,24 +1,31 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3
 import random
 import os
 import subprocess
+import argparse
 
 
-NUMBERS = 1
-LETTERS = 2
-SPECIAL = 3
+parser = argparse.ArgumentParser()
+parser.add_argument("-l", "--length", type=int, default=8, help="An integer setting the length of password hash")
+parser.add_argument("-c", "--charset", default="let", choices=["let", "num", "spc"], help="The character set that you wish to use. let for upercase and lowercase letters, num for letters and numbers, and spc for special characters")  
+parser.add_argument("-v", "--verbose", action="store_true", help="Displays the length and character set used for the hash.")
+args = parser.parse_args()
+
+SELECTION = args.charset
+LENGTH = args.length
+
 
 def generateHash(charset, length):
     nums = range(48,58)
     lowerCase = range(65,91)
     upperCase = range(97,123)
 
-    if(charset == 1):
+    if(charset == "let"):
         value = ""
         for i in range(length):
             value += chr(random.randint(48,57))
         subprocess.call(["mkpasswd", "-m", "sha-512", value])
-    elif(charset == 2):
+    elif(charset == "num"):
         value = ""
         characterset = []
         characterset.extend(nums)
@@ -27,7 +34,7 @@ def generateHash(charset, length):
         for i in range(length):
             value += chr(random.choice(characterset))
         subprocess.call(["mkpasswd", "-m", "sha-512", value])
-    elif(charset == 3):
+    elif(charset == "spc"):
         value = ""
         characterset = []
         characterset.extend(range(32,127))
@@ -35,7 +42,13 @@ def generateHash(charset, length):
             value += chr(random.choice(characterset))
         subprocess.call(["mkpasswd", "-m", "sha-512", value])
     else:
-        print "Option not Valid"
+        print("Option not Valid")
 
+if(args.verbose):
+    char_set = {"let":"Letters", "num":"Letters and Numbers", "spc":"Special Characters"}
+    if(args.length > 0):
+        print("The hash was made with " + char_set[args.charset] + " and is " + str(args.length) + " characters long.")
+    else:
+        print("The hash was made with " + char_set[args.charset] + " and is 0 characters long.")
 
-generateHash(NUMBERS, 8)
+generateHash(SELECTION, LENGTH)
