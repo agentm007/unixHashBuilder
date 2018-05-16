@@ -45,10 +45,10 @@ def generateHash(charset, length):
         print("Option not Valid")
 
 if(args.verbose):
-    char_set = {"let":"Letters", "num":"Letters and Numbers", "spc":"Special Characters"}
+    char_set = {"let":"uppercase and lowercase letters", "num":"letters and numbers", "spc":"letters, numbers and special characters"}
     if(args.length > 0):
-        print("The hash was made with " + char_set[args.charset] + " and is " + str(args.length) + " characters long.")
+        print("The hash was made using " + char_set[args.charset] + " and is " + str(args.length) + " characters long.")
     else:
-        print("The hash was made with " + char_set[args.charset] + " and is 0 characters long.")
+        print("The hash was made using " + char_set[args.charset] + " and is 0 characters long.")
 
 generateHash(SELECTION, LENGTH)
