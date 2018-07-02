@@ -17,8 +17,8 @@ LENGTH = args.length
 
 def generateHash(charset, length):
     nums = range(48,58)
-    lowerCase = range(65,91)
-    upperCase = range(97,123)
+    upperCase = range(65,91)
+    lowerCase = range(97,123)
 
     if(charset == "let"):
         value = ""
