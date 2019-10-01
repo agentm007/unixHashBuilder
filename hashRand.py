@@ -14,18 +14,17 @@ args = parser.parse_args()
 SELECTION = args.charset
 LENGTH = args.length
 
-
 def generateHash(charset, length):
     nums = range(48,58)
     upperCase = range(65,91)
     lowerCase = range(97,123)
 
-    if(charset == "let"):
+    if(charset == "num"):
         value = ""
         for i in range(length):
             value += chr(random.randint(48,57))
         subprocess.call(["mkpasswd", "-m", "sha-512", value])
-    elif(charset == "num"):
+    elif(charset == "let"):
         value = ""
         characterset = []
         characterset.extend(nums)
